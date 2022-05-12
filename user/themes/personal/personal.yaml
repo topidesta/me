@@ -1,0 +1,42 @@
+enabled: true
+
+# #######
+# Profile
+# #######
+profile:
+  name: "John Doe"
+  desc: "short description"
+  avatar_url: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png"
+  bio: "Some longer description of self. Write anything you'd like here, as long as it will make you shine..."  
+  
+# #######
+# Social Networks
+# #######
+social:
+  networks:
+    - url: "#"
+      icon: "fa-twitter"
+      title:
+    - url: "#"
+      icon: "fa-mastodon"
+      title:
+    - url: "#"
+      icon: "fa-linkedin"
+      title:
+    - url: "#"
+      icon: "fa-gitlab"
+      title:
+    - url: "#"
+      icon: "fa-peertube"
+      title:
+
+# #######
+# Streams
+# #######
+# Grav streams
+streams:
+  schemes:
+    theme:
+      type: ReadOnlyStream
+      paths:
+        - user/themes/personal

@@ -1,0 +1,123 @@
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+      {% block head_meta %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        {% for meta in page.metadata %}
+          <meta {% if meta.name %}name="{{ meta.name }}" {% endif %}{% if meta.http_equiv %}http-equiv="{{ meta.http_equiv }}" {% endif %}{% if meta.charset %}charset="{{ meta.charset }}" {% endif %}{% if meta.property %}property="{{ meta.property }}" {% endif %}{% if meta.content %}content="{{ meta.content }}" {% endif %}/>
+        {% endfor %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="{{ site.metadata.description }}" />
+      {% endblock %}
+
+      {% block head_title %}
+        <title>{% if page.header.title and (page.url != base_url or 'error' == page.template) %}{{ page.header.title }} | {% endif %}{{ site.title }}</title>
+      {% endblock %}
+
+      <link rel="canonical" href="{{ page.url(true) }}" />
+      <link rel="shortcut icon" href="{{ theme_url }}/assets/images/favicon.ico" />
+
+      {% block head_css %}
+        {% do assets.add('theme://assets/plugins/fork-awesome-subset/css/fork-awesome.min.css', 105) %}
+        {% do assets.add('theme://assets/css/main.min.css', 102) %}
+        {{ assets.css()|raw }}
+      {% endblock %}
+
+      {% block head_css_extra %}{% endblock %}
+
+      {% block head_js %}
+        {# HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries #}
+        {# WARNING: Respond.js doesn't work if you view the page via file:// #}
+        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+          {% do assets.addJs('//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js') %}
+          {% do assets.addJs('//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js') %}
+        {% endif %}
+      {% endblock %}
+    {% endblock %}
+  </head>
+
+  {% block body %}<body id="page-top" class="index">{% endblock %}
+    {% if not page.header.hideProfile %}
+    {% block body_header %}
+      {% include 'partials/profile.html.twig' %}
+    {% endblock %}
+    {% endif %}
+    
+    
+    {% block body_menu %}
+      <div class="topmenu" id="topMenu">
+      <div class="container">
+        {% if not page.header.hideProfile %}
+        <section class="logo hidden" id="navLogo">
+        {% else %}
+        <section class="logo">
+        {%endif %}
+          {% set profile_image = (theme_config.profile.avatar_url) ?: '//gravatar.com/avatar/' ~ site.author.email | md5 ~ '?s=180' %}
+          <a href="{{ home_url }}">
+            <img class="profile-image img-responsive pull-left drop" src="{{ url(profile_image) }}" alt="{{ theme_config.profile.name | default(site.author.name) }}" height="40" width="40" />
+          </a>
+        </section>
+        <section class="desktop-menu">
+          <nav class="navbar">
+            <nav class="dropmenu animated">
+              {% block topmenu_navigation %}
+                {% include 'partials/navigation.html.twig' %}
+              {% endblock %}
+            </nav>
+          </nav>
+        </section>
+        <div class="mobile-menu">
+          <div class="button_container" id="toggle">
+            <span class="hamburger top"></span>
+            <span class="hamburger middle"></span>
+            <span class="hamburger bottom"></span>
+          </div>
+        </div>
+      </div>
+      </div>
+    {% endblock %}
+
+    {% block body_content %}
+      <div class="container sections-wrapper">
+        <div class="row">
+          <div class="primary col-md-12 col-sm-12 col-xs-12">
+            <section class="{{ page.header.section_class | default(page.slug) }} section">
+              <div class="section-inner">
+                {% if page.header.hideProfile %}
+                  {% include 'partials/lang.html.twig' %}
+                {% endif %}
+                <h2 class="heading">{{ page.title }}</h2>
+                {% block page_content %}
+                {% endblock %}
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+
+    {% block body_footer %}
+      <footer class="footer">
+        <div class="container text-center">
+          <small class="copyright">Copyright &copy; {{ 'NOW' | date('Y') }} {{ site.title }} | Grav Theme: <a href="//git.moqueur.chat/etienne/grav-theme-personal">Personal</a></small>
+        </div>
+      </footer>
+    {% endblock %}
+
+    <div class="mobile-container">
+      <div class="overlay" id="overlay">
+        <nav class="overlay-menu">
+          {% include 'partials/navigation.html.twig' with {tree: true} %}
+        </nav>
+      </div>
+    </div>
+
+    {% block body_js %}
+      {% do assets.add('theme://assets/js/main.min.js', 100) %}
+      {{ assets.js()|raw }}
+    {% endblock %}
+  </body>
+</html>

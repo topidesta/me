@@ -1,0 +1,24 @@
+<header class="header">
+  <div class="container">
+    {% set profile_image = (theme_config.profile.avatar_url) ?: '//gravatar.com/avatar/' ~ site.author.email | md5 ~ '?s=180' %}
+    {% include 'partials/lang.html.twig' %}
+    <img class="profile-image img-responsive pull-left rounded" src="{{ url(profile_image) }}" alt="{{ theme_config.profile.name | default(site.author.name) }}" height="180" width="180" />
+    <div class="profile-content">
+      <h1 class="name">{{ theme_config.profile.name | default(site.author.name) }}</h1>
+      <h2 class="desc">{{ attribute(theme_config.profile.desc,grav.language.getActive) | default(site.metadata.description) }}</h2>
+      {% if theme_config.social.networks | length %}
+        <ul class="social">
+          {% for network in theme_config.social.networks %}
+            <li class="{% if network == theme_config.social.networks | last %}last-item{% endif %}"><a href="{{ network.url }}" {%if network.icon == "fa-mastodon" %}rel="me"{% endif %}><i class="fa {{ network.icon }}"></i>{{ network.title }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    {% if theme_config.profile.bio %}
+    <div class="profile-bio">
+      <p class="biography">{{ attribute(theme_config.profile.bio, grav.language.getActive) | default(theme_config.profile.bio) }}</p>
+    </div>
+    {% endif %}
+  </div>
+</header>
+

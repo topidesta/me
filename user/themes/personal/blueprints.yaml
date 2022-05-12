@@ -1,0 +1,18 @@
+name: "Personal"
+version: "0.0"
+description: "Personal is a Grav theme suited for a personal presentation page."
+icon: "clipboard"
+author:
+  name: "Etienne Werly"
+  email: "etienne@moqueur.chat"
+  url: "https://etienne.moqueur.chat"
+homepage: "https://git.moqueur.chat/etienne/grav-theme-personal.git"
+demo: "https://etienne.moqueur.chat"
+keywords: ["bootstrap", "theme", "cv", "resume", "responsive", "html5", "css3", "jquery", "github"]
+docs: "https://git.moqueur.chat/etienne/grav-theme-personal.git"
+bugs: "https://git.moqueur.chat/etienne/grav-theme-personal.git"
+license: "MIT/GPL"
+
+form:
+  validation: strict
+  fields:

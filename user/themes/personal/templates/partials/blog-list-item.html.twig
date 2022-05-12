@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-header">
+	<a href="{{ page.url }}">{{ page.title }}</a>
+    </div>
+    <div class="card-body">
+        {% if page.summary != page.content %}
+            {{ page.summary|raw }}
+        {% else %}
+            {{ page.content|raw }}
+        {% endif %}
+        
+        <div style="text-align: center;">
+                <a href="{{ page.url }}" class="button">{{ "More" | t }}</a>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        {% if page.date %}
+            {# TODO: add some info on the card footer: date written, tags?, read time,...#}
+            <p><i class="fa fa-calendar"></i> {{ page.date | date('d-m-Y') }}</p>
+            
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="lang-dropdown">
+  <span class="current-lang">&nbsp;{{ grav.language.getActive }}&nbsp;</span> <i class="icon fa fa-angle-down"></i>
+  <div class="lang-dropdown-menu">
+    <ul>
+      {% for lang in system.languages.supported %}
+        {% set lang_url = base_url_simple ~ grav.language.getLanguageURLPrefix(lang) ~ page.route %}
+        <li><a href="{{ lang_url }}">{{ lang }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
